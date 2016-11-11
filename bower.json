@@ -1,0 +1,21 @@
+{
+  "name": "qian",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "huanghuanlai <102535481@qq.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/dounine/qian",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "easyui": "*",
+    "jquery": "^3.1.1"
+  }
+}

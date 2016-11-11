@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="/lib/easyui/themes/bootstrap/easyui.css"></link>
+		<script src="/lib/jquery/dist/jquery.min.js" charset="utf-8"></script>
+		<script src="/lib/easyui/jquery.easyui.min.js" charset="utf-8"></script>
+		<script src="/lib/easyui/locale/easyui-lang-zh_CN.js" charset="utf-8"></script>
+	</head>
+	<body>
+		<table id="g-cus" title="datagrid-combobox 任务"  method="get" class="easyui-datagrid" style="width:auto;height:200px;" url="/list.json" fitColumns="true" singleSelect="true">
+			<thead>
+				<tr>
+					<th field="id" width="60">员工编号</th>
+							<th field="username" width="60" >员工姓名</th>
+							<th field="level" width="60" >管理等级 <select id="level" name="level" style="width:100px;"></select></th>
+				</tr>
+			</thead>
+		</table>
+		<script>
+		 $(function(){  
+				$('#level').combobox({
+					method:'get',
+					valueField:'id',
+					textField:'text',
+					url:'/combox.json'
+				});  
+			});
+		</script>
+	</body>
+</html>
