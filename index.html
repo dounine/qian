@@ -3,30 +3,141 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
-		<link rel="stylesheet" type="text/css" href="/lib/easyui/themes/bootstrap/easyui.css"></link>
-		<script src="/lib/jquery/dist/jquery.min.js" charset="utf-8"></script>
-		<script src="/lib/easyui/jquery.easyui.min.js" charset="utf-8"></script>
-		<script src="/lib/easyui/locale/easyui-lang-zh_CN.js" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="./lib/easyui/themes/material/easyui.css"></link>
+		<script src="./lib/jquery/dist/jquery.min.js" charset="utf-8"></script>
+		<script src="./lib/easyui/jquery.easyui.min.js" charset="utf-8"></script>
+		<script src="./lib/easyui/locale/easyui-lang-zh_CN.js" charset="utf-8"></script>
 	</head>
+	<style>
+		.my-datagrid-combobox{
+			width:100px;
+			height: 12px;
+			line-height: 12px;
+			top:6px;
+			opacity:1;
+			position: absolute;
+		}
+		.my-datagrid-combobox ul,.my-datagrid-combobox ul li{
+			margin:0;
+			padding: 0;
+			list-style: none;
+		}
+		.my-datagrid-combobox .title{
+			position: absolute;
+			top:0;
+			left:0;
+			display: block;
+			cursor: pointer;
+			user-select: none; 
+		}
+		.datagrid-header .datagrid-cell-group .my-datagrid-combobox .context{
+			opacity: 1;
+			filter: alpha(opacity=100);
+		}
+		.my-datagrid-combobox .context{
+			position: absolute;
+			width: 150px;
+			height: auto;
+			max-height: 100px;
+			overflow-y: auto;
+			top:17px;
+			left:0;
+			display: block;
+			border-radius: 2px;
+			background: white;
+			box-shadow:0 0 10px rgba(0, 204, 204, .5);
+		}
+		.my-datagrid-combobox .context li{
+			opacity: 1;
+			height: 30px;
+			line-height: 30px;
+			text-indent: 10px;
+			border-bottom: 1px solid #cfcfcf;
+			cursor: pointer;
+		}
+		.my-datagrid-combobox .context li:hover{
+			background: #9cf;
+		}
+		.my-datagrid-combobox .context li:last-child{
+			border-bottom: none;
+		}
+		.my-datagrid-combobox .hide{
+			display: none;
+		}
+		.my-datagrid-combobox .title .txt{
+			float: left;
+		}
+		.my-datagrid-combobox .title .icon{
+			margin-left: 10px;
+			float: right;
+			width: 14px;
+			height: 12px;
+			background: url(./datagrid_icons.png) -66px -2px;
+		}
+		.my-datagrid-combobox .title .icon-up{
+			margin-left: 10px;
+			float: right;
+			width: 14px;
+			height: 12px;
+			background: url(./datagrid_icons.png) -4px -2px;
+		}
+		.my-datagrid-combobox .title .icon-down{
+			margin-left: 10px;
+			float: right;
+			width: 14px;
+			height: 12px;
+			background: url(./datagrid_icons.png) -20px -2px;
+		}
+		.datagrid-header .datagrid-cell, .datagrid-header .datagrid-cell-group {
+			filter: alpha(opacity=100);
+			opacity: 1;
+		}
+	</style>
 	<body>
-		<table id="g-cus" title="datagrid-combobox 任务"  method="get" class="easyui-datagrid" style="width:auto;height:200px;" url="/list.json" fitColumns="true" singleSelect="true">
+		<table id="g-cus" title="datagrid-combobox 任务"  method="get" class="easyui-datagrid" style="width:auto;height:200px;" url="./list.json" fitColumns="true" singleSelect="true">
 			<thead>
 				<tr>
 					<th field="id" width="60">员工编号</th>
 							<th field="username" width="60" >员工姓名</th>
-							<th field="level" width="60" >管理等级 <select id="level" name="level" style="width:100px;"></select></th>
+							<th field="level" width="60" >
+								<div class="my-datagrid-combobox">
+									<ul class="title">
+										<span class="txt" datagrid-combobox-title onclick="combo_click(this)">业务组名称</span>
+									</ul>
+									<ul class="context hide" >
+										<li>管理no1</li>
+										<li>管理no1</li>
+										<li>管理no2</li>
+									</ul>
+								</div>
+							</th>
 				</tr>
 			</thead>
 		</table>
 		<script>
 		 $(function(){  
-				$('#level').combobox({
-					method:'get',
-					valueField:'id',
-					textField:'text',
-					url:'/combox.json'
-				});  
+//				$('#level').combobox({
+//					method:'get',
+//					valueField:'id',
+//					textField:'text',
+//					url:'/combox.json'
+//				});
+				var mdc = $('div.my-datagrid-combobox ul.context');
+				$(document).click(function (e) {
+					if($(e.toElement)[0]&&$(e.toElement).attr('datagrid-combobox-title')==undefined){
+						mdc.addClass('hide');
+					}
+				})  
 			});
+			
+			function combo_click(self) {
+				var $self = $(self).parent().next();
+				if($self.is(':visible')){
+					$self.addClass('hide');
+				}else{
+					$self.removeClass('hide');
+				}
+			}
 		</script>
 	</body>
 </html>
